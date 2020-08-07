@@ -79,6 +79,7 @@ function appendTasks(response) {
     }
 }
 
+// tells server to remove a task from the database
 function deleteTask() {
     swal({
         title: "Are you sure?",
@@ -107,6 +108,7 @@ function deleteTask() {
       })    
 }
 
+// tells server to mark a task as compeleted
 function completeTask() {
     console.log('Incoming');
 }
