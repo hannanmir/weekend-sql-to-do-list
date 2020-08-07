@@ -4,6 +4,8 @@ $(document).ready(handleReady);
 function handleReady() {
     console.log('jQ is here!');
     $('#taskBtn').on('click', submitTask)
+    $('#target').on('click', '.deleteBtn', deleteTask)
+    $('#target').on('click', '.completeBtn', completeTask)
     getTasks();
 }
 
@@ -75,4 +77,36 @@ function appendTasks(response) {
         );      
         $('#target').append($tr);      
     }
+}
+
+function deleteTask() {
+    swal({
+        title: "Are you sure?",
+        text: "Your task will be removed permanently!",
+        icon: "warning",
+        buttons: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          swal("Your task has been deleted", {
+            icon: "success",
+          });
+          let id = $(this).closest('tr').data('task');
+          $.ajax({
+            method: 'DELETE',
+            url: `/tasks/${id}`
+      })
+      .then(function(response){
+        getTasks();
+      })
+      .catch(function(error) {
+        alert('Error in deleteTasks', error);
+      })
+        }else {
+          swal("Your task was not deleted!");
+        }
+      })    
+}
+
+function completeTask() {
+    console.log('Incoming');
 }
