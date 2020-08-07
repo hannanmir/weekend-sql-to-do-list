@@ -6,7 +6,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "node": "^14.7.0",
-    "pg": "^8.3.0"
+    "pg": "^8.3.0",
+    "swal": "^0.1.0"
   },
   "devDependencies": {},
   "scripts": {
