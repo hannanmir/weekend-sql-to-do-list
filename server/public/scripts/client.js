@@ -1,6 +1,11 @@
 console.log('js');
 $(document).ready(handleReady);
 
+var today = new Date();
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+var dateTime = date+' '+time;
+
 function handleReady() {
     console.log('jQ is here!');
     $('#taskBtn').on('click', submitTask)
@@ -109,7 +114,7 @@ function completeTask() {
     let idToComplete = $(this).closest('tr').data('task');
     $.ajax({
         method: 'PUT',
-        url: `/tasks/${idToComplete}`, 
+        url: `/tasks/${idToComplete}` 
     }).then(function() {
         getTasks();
     }).catch(function(error) {
