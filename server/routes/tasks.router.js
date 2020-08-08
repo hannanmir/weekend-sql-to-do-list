@@ -51,7 +51,7 @@ router.delete('/:id', (req, res) => {
 
 // updates a task as completed in the database
 router.put("/:id", (req, res) => {
-    console.log("In Put", req.params.id, req.body);
+    console.log("In Put", req.params.id);
     let queryText = `
         UPDATE "tasks"
         SET "completed" = 'true'

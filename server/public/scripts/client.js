@@ -32,7 +32,7 @@ function sendTasks(newTask) {
     }).then((response) => { 
         swal("Added new task!", {
         buttons: false,
-        timer: 2000,
+        timer: 1000,
     });
     $('#taskInput').val('');
     getTasks();
@@ -64,17 +64,13 @@ function appendTasks(response) {
         $tr.data('task', task.id);
         $tr.append(`<td>${task.task}</td>`);
         if (task.completed === false) {
-            $tr.append(
-                `<td><button class="completeBtn btn btn-outline-info">Mark as Completed</button></td>`
+            $tr.append(`
+                <td><button class="completeBtn btn btn-outline-info">Mark as Completed</button></td>`
             );
-        } else {
-            $tr.append(
-                `<td><button class="uncompleteBtn btn btn-success">Task Completed!</button></td>`
-            );
+        } else if (task.completed === true) {
+            $tr.append(`<td><button class="uncompleteBtn btn btn-success">Task Completed!</button></td>`);
         }
-        $tr.append(
-            `<td><button class="deleteBtn btn btn-outline-danger">DELETE</button></td>`
-        );      
+        $tr.append(`<td><button class="deleteBtn btn btn-outline-danger">DELETE</button></td>`);      
         $('#target').append($tr);      
     }
 }
@@ -86,8 +82,8 @@ function deleteTask() {
         text: "Your task will be removed permanently!",
         icon: "warning",
         buttons: true,
-    }).then((willDelete) => {
-        if (willDelete) {
+    }).then((toDelete) => {
+        if (toDelete) {
             swal("Your task has been deleted", {
                 icon: "success",
             });
@@ -96,7 +92,7 @@ function deleteTask() {
             method: 'DELETE',
             url: `/tasks/${id}`
         })
-        .then(function(response){
+        .then(function(){
             getTasks();
         })
         .catch(function(error) {
@@ -111,13 +107,9 @@ function deleteTask() {
 // tells server to mark a task as compeleted
 function completeTask() {
     let idToComplete = $(this).closest('tr').data('task');
-    let completedTask = {
-        compeleted: 'true'
-    };
     $.ajax({
         method: 'PUT',
         url: `/tasks/${idToComplete}`, 
-        data: completedTask
     }).then(function() {
         getTasks();
     }).catch(function(error) {
