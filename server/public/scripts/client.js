@@ -29,15 +29,16 @@ function sendTasks(newTask) {
         method: 'POST',
         url: '/tasks',
         data: newTask
-      }).then((response) => { 
+    }).then((response) => { 
         swal("Added new task!", {
-          buttons: false,
-          timer: 2000,
-        });
-        getTasks();
-      }).catch(function (error){ 
+        buttons: false,
+        timer: 2000,
+    });
+    $('#taskInput').val('');
+    getTasks();
+    }).catch(function (error){ 
         console.log(error);
-      })
+    })
 }
 
 // ask server to send the database
@@ -45,12 +46,12 @@ function getTasks() {
     $.ajax({
         type: 'GET',
         url: '/tasks'
-      }).then(function(response) {
+    }).then(function(response) {
         console.log(response);
         appendTasks(response);
-      }).catch(function(error){
+    }).catch(function(error){
         console.log('error in getTasks', error);
-      });
+    });
 }
 
 // writes the database tasks to the DOM, and genderates buttons for delete and complete tasks
@@ -62,10 +63,9 @@ function appendTasks(response) {
         let $tr = $('<tr></tr>');
         $tr.data('task', task.id);
         $tr.append(`<td>${task.task}</td>`);
-        $tr.append(`<td>${task.completed}</td>`);
         if (task.completed === false) {
             $tr.append(
-              `<td><button class="completeBtn btn btn-outline-info">Mark as Completed</button></td>`
+                `<td><button class="completeBtn btn btn-outline-info">Mark as Completed</button></td>`
             );
         } else {
             $tr.append(
@@ -73,7 +73,7 @@ function appendTasks(response) {
             );
         }
         $tr.append(
-        `<td><button class="deleteBtn btn btn-outline-danger">DELETE</button></td>`
+            `<td><button class="deleteBtn btn btn-outline-danger">DELETE</button></td>`
         );      
         $('#target').append($tr);      
     }
@@ -86,29 +86,41 @@ function deleteTask() {
         text: "Your task will be removed permanently!",
         icon: "warning",
         buttons: true,
-      }).then((willDelete) => {
+    }).then((willDelete) => {
         if (willDelete) {
-          swal("Your task has been deleted", {
-            icon: "success",
-          });
+            swal("Your task has been deleted", {
+                icon: "success",
+            });
           let id = $(this).closest('tr').data('task');
-          $.ajax({
+        $.ajax({
             method: 'DELETE',
             url: `/tasks/${id}`
-      })
-      .then(function(response){
-        getTasks();
-      })
-      .catch(function(error) {
-        alert('Error in deleteTasks', error);
-      })
-        }else {
-          swal("Your task was not deleted!");
+        })
+        .then(function(response){
+            getTasks();
+        })
+        .catch(function(error) {
+            alert('Error in deleteTasks', error);
+        })
+        } else {
+            swal("Your task was not deleted!");
         }
-      })    
+    })    
 }
 
 // tells server to mark a task as compeleted
 function completeTask() {
-    console.log('Incoming');
+    let idToComplete = $(this).closest('tr').data('task');
+    let completedTask = {
+        compeleted: 'true'
+    };
+    $.ajax({
+        method: 'PUT',
+        url: `/tasks/${idToComplete}`, 
+        data: completedTask
+    }).then(function() {
+        getTasks();
+    }).catch(function(error) {
+        console.log('Error in completeTask', error);
+    })
 }
