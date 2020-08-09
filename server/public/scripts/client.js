@@ -68,11 +68,11 @@ function appendTasks(response) {
         let $tr = $('<tr></tr>');
         $tr.data('task', task.id);
         $tr.append(`<td>${task.task}</td>`);
-        if (task.completed === false) {
+        if (task.completed === 'false') {
             $tr.append(`
                 <td><button class="completeBtn btn btn-outline-info">Mark as Completed</button></td>`
             );
-        } else if (task.completed === true) {
+        } else if (task.completed === 'true') {
             $tr.append(`<td><button class="uncompleteBtn btn btn-success">Task Completed!</button></td>`);
         }
         $tr.append(`<td><button class="deleteBtn btn btn-outline-danger">DELETE</button></td>`);      
