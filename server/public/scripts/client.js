@@ -73,7 +73,7 @@ function appendTasks(response) {
                 <td><button class="completeBtn btn btn-outline-info">Mark as Completed</button></td>`
             );
         } else if (task.completed === 'true') {
-            $tr.append(`<td><button class="uncompleteBtn btn btn-success">Task Completed!</button></td>`);
+            $tr.append(`<td><button class="uncompleteBtn btn btn-success">Task Completed at ${task.time}!</button></td>`);
         }
         $tr.append(`<td><button class="deleteBtn btn btn-outline-danger">DELETE</button></td>`);      
         $('#target').append($tr);      
@@ -112,12 +112,23 @@ function deleteTask() {
 // tells server to mark a task as compeleted
 function completeTask() {
     let idToComplete = $(this).closest('tr').data('task');
+    let currentTime = {
+        time: dateTime
+    };
     $.ajax({
         method: 'PUT',
-        url: `/tasks/${idToComplete}` 
+        url: `/tasks/C/${idToComplete}`
+    }).then(function() {
+    }).catch(function(error) {
+        console.log('Error in completeTask', error);
+    })
+    $.ajax({
+        method: 'PUT',
+        url: `/tasks/T/${idToComplete}`,
+        data: currentTime
     }).then(function() {
         getTasks();
     }).catch(function(error) {
-        console.log('Error in completeTask', error);
+        console.log('Error in updateTime', error);
     })
 }

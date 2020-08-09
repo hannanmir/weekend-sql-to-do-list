@@ -50,8 +50,8 @@ router.delete('/:id', (req, res) => {
 });
 
 // updates a task as completed in the database
-router.put("/:id", (req, res) => {
-    console.log("In Put", req.params.id);
+router.put("/C/:id", (req, res) => {
+    console.log("In Complete Put", req.params.id);
     let queryText = `
         UPDATE "tasks"
         SET "completed" = 'true'
@@ -63,6 +63,24 @@ router.put("/:id", (req, res) => {
     })
     .catch((error) => {
         console.log("error in completeTask", error);
+        res.sendStatus(500);
+    });
+});
+
+// update time completed in database
+router.put("/T/:id", (req, res) => {
+    console.log("In Time Put", req.params.id);
+    let queryText = `
+        UPDATE "tasks"
+        SET "time" = '${req.body.time}'
+        WHERE "id" = $1;
+        `;
+    pool.query(queryText, [req.params.id])
+        .then((result) => {
+        res.sendStatus(200);
+    })
+    .catch((error) => {
+        console.log("error in updateTime", error);
         res.sendStatus(500);
     });
 });
