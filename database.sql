@@ -5,6 +5,6 @@ CREATE TABLE tasks(
     "time" VARCHAR (255) DEFAULT 'incomplete'
 );
 
--- Sample entries
+-- Sample entries for table
 INSERT INTO "tasks" ("task") VALUES ('Weekend Challenge');
 INSERT INTO "tasks" ("task") VALUES ('Prime Academy');
