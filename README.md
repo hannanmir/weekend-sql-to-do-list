@@ -1,9 +1,5 @@
-# Project Name
-
-[Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md
+# To Do Checklist
 
 ## Description
 
-Your project description goes here. What problem did you solve? How did you solve it?
-
-Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
+Welcome to the To Do Checklist! This is a fullstack full CRUD app. Input your tasks and they are stored in a database. You can mark a task as complete which will change some CSS or you can choose to delete a task and it will remove it from the database. This app was built using HTML/CSS, jQuery, Node, SQL, Bootstrap, AJAX, Sweetalert, and more! 
