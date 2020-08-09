@@ -1,7 +1,7 @@
 CREATE TABLE tasks(
 	"id" SERIAL PRIMARY KEY,
 	"task" VARCHAR (255) NOT NULL,
-    "completed" BOOLEAN DEFAULT 'false'
+    "completed" VARCHAR (10) DEFAULT 'false'
 );
 
 INSERT INTO "tasks" ("task") VALUES ('Weekend Challenge');
