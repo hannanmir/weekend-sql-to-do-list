@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "express": "^4.17.1",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "node": "^14.7.0",
     "pg": "^8.3.0",
     "swal": "^0.1.0"
